@@ -83,10 +83,19 @@ export default function App() {
 
   const numQuestions = questions.length;
   const maxPossiblePoints = questions.reduce((pr, cur) => pr + cur.points, 0);
+  // originally with json-server
+  // useEffect(function () {
+  //   // fetch("http://localhost:8000/questions")
+  //     .then((res) => res.json())
+  //     .then((data) => dispatch({ type: "dataReceived", payload: data }))
+  //     .catch((err) => dispatch({ type: "dataFailed" }));
+  // }, []);
   useEffect(function () {
-    fetch("http://localhost:8000/questions")
+    fetch("/data/questions.json")
       .then((res) => res.json())
-      .then((data) => dispatch({ type: "dataReceived", payload: data }))
+      .then((data) =>
+        dispatch({ type: "dataReceived", payload: data.questions })
+      )
       .catch((err) => dispatch({ type: "dataFailed" }));
   }, []);
   return (
